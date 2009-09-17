@@ -13,6 +13,11 @@
 // A simple class to represent a database. Uses XMLHttpRequest to interface with
 // the CouchDB server.
 
+function encodeURIComponent(s) { 
+  console.debug("URI: ", s);
+  return s; 
+}
+
 function CouchDB(name, httpHeaders) {
   this.name = name;
   this.uri = "/" + encodeURIComponent(name) + "/";
@@ -172,6 +177,7 @@ function CouchDB(name, httpHeaders) {
 
   // gets information about the database
   this.info = function() {
+    console.debug("Info: ", this.uri);
     this.last_req = this.request("GET", this.uri);
     CouchDB.maybeThrowError(this.last_req);
     return JSON.parse(this.last_req.responseText);
